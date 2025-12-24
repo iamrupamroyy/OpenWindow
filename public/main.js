@@ -23,7 +23,8 @@ const usersBtn = document.getElementById('users-btn');
 
 // Other
 const emojiPicker = document.querySelector('emoji-picker');
-const themeCheckbox = document.getElementById('theme-checkbox');
+const themeCheckboxJoin = document.getElementById('theme-checkbox-join');
+const themeCheckboxChat = document.getElementById('theme-checkbox-chat');
 const socket = io({
     reconnection: true,
     reconnectionAttempts: Infinity,
@@ -47,13 +48,19 @@ window.addEventListener('load', setAppHeight);
 function applyTheme(isDark) {
     document.body.setAttribute('data-theme', isDark ? 'dark' : 'light');
     localStorage.setItem('theme', isDark ? 'dark' : 'light');
-    themeCheckbox.checked = isDark;
+    // Sync both checkboxes
+    themeCheckboxJoin.checked = isDark;
+    themeCheckboxChat.checked = isDark;
 }
-themeCheckbox.addEventListener('change', (e) => applyTheme(e.target.checked));
-document.addEventListener('DOMContentLoaded', () => {
+
+function setupTheme() {
     const savedTheme = localStorage.getItem('theme');
     applyTheme(savedTheme === 'dark');
-});
+
+    themeCheckboxJoin.addEventListener('change', (e) => applyTheme(e.target.checked));
+    themeCheckboxChat.addEventListener('change', (e) => applyTheme(e.target.checked));
+}
+document.addEventListener('DOMContentLoaded', setupTheme);
 
 
 // --- EVENT LISTENERS ---
@@ -107,7 +114,6 @@ document.addEventListener('click', (e) => {
 // --- SOCKET EVENT HANDLERS ---
 socket.on('connect', () => {
     console.log('Connected to server.');
-    // Attempt to rejoin if user data is in session storage
     const storedUser = sessionStorage.getItem('openWindowUser');
     if (storedUser) {
         socket.emit('joinRoom', JSON.parse(storedUser));
@@ -129,7 +135,7 @@ socket.on('joinSuccess', () => {
 
 socket.on('usernameError', (error) => {
     alert(error);
-    sessionStorage.removeItem('openWindowUser'); // Clear invalid session
+    sessionStorage.removeItem('openWindowUser');
     location.reload();
 });
 

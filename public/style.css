@@ -48,8 +48,17 @@ body {
     border-radius: 8px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 }
-.join-header { text-align: center; padding: 20px 20px 10px; }
-.join-header h1 { font-size: 2rem; color: var(--primary-color); }
+.join-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 20px 10px;
+}
+.join-header h1 { font-size: 2rem; color: var(--primary-color); display: flex; align-items: center; }
+
+.join-header .header-logo-icon {
+    background-color: var(--primary-color);
+}
 .join-main { padding: 10px 30px 20px; }
 .join-footer { text-align: center; padding: 15px; font-size: 0.8rem; color: var(--meta-text-color); }
 
