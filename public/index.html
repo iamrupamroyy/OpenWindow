@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="stylesheet" href="style.css">
+    <title>OpenWindow</title>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js"></script>
+</head>
+<body>
+    <div class="join-container">
+        <header class="join-header">
+            <h1><span class="header-logo-icon"></span> OpenWindow</h1>
+        </header>
+        <main class="join-main">
+            <form id="join-form">
+                <div class="form-control">
+                    <label for="username">Username</label>
+                    <input type="text" name="username" id="username" placeholder="Enter username..." required />
+                </div>
+                <div class="form-control">
+                    <label for="room">Room</label>
+                    <input type="text" name="room" id="room" placeholder="Enter or select a room..." required />
+                    <div id="room-list-container">
+                        <h3>Active Rooms</h3>
+                        <ul id="room-list"></ul>
+                    </div>
+                </div>
+                <button type="submit" class="btn">Join Chat</button>
+            </form>
+        </main>
+        <footer class="join-footer">
+            <p>All rights reserved by Rupam Roy &copy; 2025</p>
+        </footer>
+    </div>
+
+    <div class="chat-container" style="display: none;">
+        <header class="chat-header">
+            <h1><span class="header-logo-icon"></span> OpenWindow</h1>
+            <div class="header-controls">
+                <button id="users-btn" class="btn"><i class="fas fa-users"></i></button>
+                <div class="theme-switch-wrapper">
+                    <label class="theme-switch" for="theme-checkbox">
+                        <input type="checkbox" id="theme-checkbox" />
+                        <div class="slider round"></div>
+                    </label>
+                </div>
+                <button id="leave-btn" class="btn" title="Leave Room"><i class="fas fa-sign-out-alt"></i></button>
+            </div>
+        </header>
+        <main class="chat-main">
+            <div class="chat-sidebar">
+                <h3><i class="fas fa-door-open"></i> Room Name:</h3>
+                <h2 id="room-name"></h2>
+                <h3><i class="fas fa-users"></i> Users</h3>
+                <ul id="users"></ul>
+            </div>
+            <div class="chat-messages"></div>
+        </main>
+        <div class="chat-form-container">
+            <form id="chat-form">
+                <input id="msg" type="text" placeholder="Enter Message" required autocomplete="off" />
+                <button type="button" id="emoji-btn" class="btn emoji-btn"><i class="far fa-smile"></i></button>
+                <button class="btn send-btn" title="Send"><i class="fas fa-paper-plane"></i></button>
+            </form>
+            <emoji-picker class="light"></emoji-picker>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
